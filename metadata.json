@@ -1,0 +1,6 @@
+{
+  "name": "ZP Cruiser",
+  "description": "Gay Cruising Daily App for Zlaté Piesky Nudapláž. Ported from Android to Web.",
+  "requestFramePermissions": ["geolocation", "camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

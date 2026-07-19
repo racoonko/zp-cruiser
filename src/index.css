@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
+  
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  
+  --color-surface: var(--surface);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-on-surface: var(--on-surface);
+  
+  --color-surface-variant: var(--surface-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+}
+
+@layer base {
+  :root {
+    --primary: #006495;
+    --on-primary: #ffffff;
+    --primary-container: #cbe6ff;
+    --on-primary-container: #001e30;
+    
+    --secondary: #50606e;
+    --on-secondary: #ffffff;
+    --secondary-container: #d4e4f5;
+    --on-secondary-container: #0c1d29;
+    
+    --tertiary: #65587b;
+    --on-tertiary: #ffffff;
+    --tertiary-container: #ebddff;
+    --on-tertiary-container: #201634;
+    
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --error-container: #ffdad6;
+    --on-error-container: #410002;
+    
+    --background: #f8fafd;
+    --on-background: #1a1c1e;
+    
+    --surface: #f8fafd;
+    --surface-container: #eef1f6;
+    --surface-container-high: #e8ecf1;
+    --on-surface: #1a1c1e;
+    
+    --surface-variant: #dee3ea;
+    --on-surface-variant: #41474d;
+    
+    --outline: #72777d;
+    --outline-variant: #c2c7ce;
+  }
+
+  .dark {
+    --primary: #8fcdff;
+    --on-primary: #003450;
+    --primary-container: #004b71;
+    --on-primary-container: #cbe6ff;
+    
+    --secondary: #b8c8d8;
+    --on-secondary: #22323e;
+    --secondary-container: #394855;
+    --on-secondary-container: #d4e4f5;
+    
+    --tertiary: #d0bce6;
+    --on-tertiary: #362a4a;
+    --tertiary-container: #4d4062;
+    --on-tertiary-container: #ebddff;
+    
+    --error: #ffb4ab;
+    --on-error: #690005;
+    --error-container: #93000a;
+    --on-error-container: #ffb4ab;
+    
+    --background: #1a1c1e;
+    --on-background: #e2e2e5;
+    
+    --surface: #1a1c1e;
+    --surface-container: #1e2022;
+    --surface-container-high: #282a2d;
+    --on-surface: #e2e2e5;
+    
+    --surface-variant: #41474d;
+    --on-surface-variant: #c2c7ce;
+    
+    --outline: #8c9197;
+    --outline-variant: #41474d;
+  }
+
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
