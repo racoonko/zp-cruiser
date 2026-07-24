@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { TodayScreen } from './components/TodayScreen';
 import { MapScreen } from './components/MapScreen';
 import { SafetyScreen } from './components/SafetyScreen';
+import { FAQScreen } from './components/FAQScreen';
 import { PullToRefresh } from './components/PullToRefresh';
 import { OnboardingCoachMark } from './components/OnboardingCoachMark';
 import { 
@@ -25,12 +26,14 @@ import {
   ShieldCheck,
   Flame,
   Camera,
-  EyeOff
+  EyeOff,
+  MessageCircleQuestion,
+  BookOpen
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'today' | 'map' | 'safety'>('today');
+  const [activeTab, setActiveTab] = useState<'today' | 'map' | 'safety' | 'faq'>('today');
   const [isDark, setIsDark] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -68,7 +71,7 @@ export default function App() {
     }
   };
 
-  const handleTabChange = (tab: 'today' | 'map' | 'safety') => {
+  const handleTabChange = (tab: 'today' | 'map' | 'safety' | 'faq') => {
     setActiveTab(tab);
     triggerHaptic();
   };
@@ -135,20 +138,35 @@ export default function App() {
             )}
           </button>
 
+          {/* FAQ Menu Item Header Button */}
+          <button 
+            onClick={() => handleTabChange('faq')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'faq'
+                ? 'bg-primary-container text-on-primary-container shadow-xs ring-1 ring-primary/30'
+                : 'bg-surface-variant/40 hover:bg-surface-variant text-on-surface'
+            }`}
+            title="Často kladené otázky (FAQ)"
+            aria-label="Často kladené otázky (FAQ)"
+          >
+            <BookOpen size={15} />
+            <span>FAQ</span>
+          </button>
+
           <button 
             onClick={() => { setShowOnboarding(true); triggerHaptic(); }}
             className="p-2 rounded-full hover:bg-surface-variant transition-colors"
             title="Sprievodca aplikáciou"
             aria-label="Sprievodca aplikáciou"
           >
-            <HelpCircle className="text-on-surface" size={24} />
+            <HelpCircle className="text-on-surface" size={22} />
           </button>
           <button 
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-surface-variant transition-colors"
             aria-label="Toggle theme"
           >
-            {isDark ? <Sun className="text-on-surface" size={24} /> : <Moon className="text-on-surface" size={24} />}
+            {isDark ? <Sun className="text-on-surface" size={22} /> : <Moon className="text-on-surface" size={22} />}
           </button>
         </div>
       </header>
@@ -177,6 +195,15 @@ export default function App() {
               onUpgradeClick={() => setShowPaywall(true)} 
             />
           )}
+          {activeTab === 'faq' && (
+            <FAQScreen 
+              key={`faq-${refreshKey}`} 
+              isPremium={isPremium} 
+              onUpgradeClick={() => setShowPaywall(true)} 
+              onNavigateToSafety={() => handleTabChange('safety')}
+              onNavigateToMap={() => handleTabChange('map')}
+            />
+          )}
         </PullToRefresh>
       </main>
 
@@ -186,12 +213,12 @@ export default function App() {
           onClick={() => handleTabChange('today')}
           className="flex-1 flex flex-col items-center justify-center gap-1 h-full"
         >
-          <div className={`flex items-center justify-center w-16 h-8 rounded-full transition-colors ${
+          <div className={`flex items-center justify-center w-14 h-8 rounded-full transition-colors ${
             activeTab === 'today' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'
           }`}>
-            <Calendar size={24} className={activeTab === 'today' ? 'fill-primary-container' : ''} />
+            <Calendar size={22} className={activeTab === 'today' ? 'fill-primary-container' : ''} />
           </div>
-          <span className={`text-xs font-semibold ${activeTab === 'today' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
+          <span className={`text-[11px] font-semibold ${activeTab === 'today' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
             Dnes
           </span>
         </button>
@@ -200,12 +227,12 @@ export default function App() {
           onClick={() => handleTabChange('map')}
           className="flex-1 flex flex-col items-center justify-center gap-1 h-full"
         >
-          <div className={`flex items-center justify-center w-16 h-8 rounded-full transition-colors ${
+          <div className={`flex items-center justify-center w-14 h-8 rounded-full transition-colors ${
             activeTab === 'map' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'
           }`}>
-            <MapIcon size={24} className={activeTab === 'map' ? 'fill-primary-container' : ''} />
+            <MapIcon size={22} className={activeTab === 'map' ? 'fill-primary-container' : ''} />
           </div>
-          <span className={`text-xs font-semibold ${activeTab === 'map' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
+          <span className={`text-[11px] font-semibold ${activeTab === 'map' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
             Mapa
           </span>
         </button>
@@ -214,13 +241,27 @@ export default function App() {
           onClick={() => handleTabChange('safety')}
           className="flex-1 flex flex-col items-center justify-center gap-1 h-full"
         >
-          <div className={`flex items-center justify-center w-16 h-8 rounded-full transition-colors ${
+          <div className={`flex items-center justify-center w-14 h-8 rounded-full transition-colors ${
             activeTab === 'safety' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'
           }`}>
-            <ShieldAlert size={24} className={activeTab === 'safety' ? 'fill-primary-container' : ''} />
+            <ShieldAlert size={22} className={activeTab === 'safety' ? 'fill-primary-container' : ''} />
           </div>
-          <span className={`text-xs font-semibold ${activeTab === 'safety' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
+          <span className={`text-[11px] font-semibold ${activeTab === 'safety' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
             Bezpečnosť
+          </span>
+        </button>
+
+        <button
+          onClick={() => handleTabChange('faq')}
+          className="flex-1 flex flex-col items-center justify-center gap-1 h-full"
+        >
+          <div className={`flex items-center justify-center w-14 h-8 rounded-full transition-colors ${
+            activeTab === 'faq' ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant'
+          }`}>
+            <BookOpen size={22} className={activeTab === 'faq' ? 'fill-primary-container' : ''} />
+          </div>
+          <span className={`text-[11px] font-semibold ${activeTab === 'faq' ? 'text-on-surface font-bold' : 'text-on-surface-variant'}`}>
+            FAQ
           </span>
         </button>
       </nav>
